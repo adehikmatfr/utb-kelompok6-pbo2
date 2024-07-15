@@ -1,8 +1,4 @@
-Berikut adalah isi `README.md` yang dapat Anda salin dan tempel ke file baru di proyek Anda:
-
-```markdown
 # Feedback App
-
 Feedback App adalah aplikasi berbasis Java Swing yang memungkinkan pengguna memberikan umpan balik menggunakan berbagai emoji.
 
 ## Prasyarat
@@ -153,6 +149,3 @@ Jika Anda ingin berkontribusi pada proyek ini, silakan fork repositori ini dan b
 ## Lisensi
 
 Proyek ini dilisensikan di bawah MIT License - lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
-```
-
-Salin dan tempel isi di atas ke file baru bernama `README.md` di root proyek Anda.
