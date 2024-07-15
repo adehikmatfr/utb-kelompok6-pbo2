@@ -1,0 +1,10 @@
+com\mycompany\Controller\FeedbackController.class
+com\mycompany\Model\User.class
+com\mycompany\Controller\UserController.class
+com\mycompany\Lib\Hibernate\Hibernate.class
+com\mycompany\View\SignUpForm.class
+com\mycompany\Model\Feedback.class
+com\mycompany\View\LoginForm.class
+com\mycompany\feedbackapp\Feedbackapp.class
+com\mycompany\Lib\SqlDbManager\DbManager.class
+com\mycompany\Lib\SqlDbManager\SqlDbManager.class
