@@ -14,6 +14,8 @@ public class FeedbackDashboard extends JFrame {
     private final FeedbackController feedbackController;
     private JTextField searchField;
     private JButton searchButton;
+    private JButton updateButton;
+    private JButton deleteButton;
     private JLabel totalFeedbackLabel;
     private JLabel averageRatingLabel;
     private JTable feedbackTable;
@@ -30,15 +32,27 @@ public class FeedbackDashboard extends JFrame {
         JLabel searchLabel = new JLabel("Search by Customer:");
         searchField = new JTextField(20);
         searchButton = new JButton("Search");
+        updateButton = new JButton("Update");
+        deleteButton = new JButton("Delete");
 
         searchButton.addActionListener((ActionEvent e) -> {
             searchFeedbacks();
+        });
+
+        updateButton.addActionListener((ActionEvent e) -> {
+            updateFeedback();
+        });
+
+        deleteButton.addActionListener((ActionEvent e) -> {
+            deleteFeedback();
         });
 
         JPanel searchPanel = new JPanel();
         searchPanel.add(searchLabel);
         searchPanel.add(searchField);
         searchPanel.add(searchButton);
+        searchPanel.add(updateButton);
+        searchPanel.add(deleteButton);
 
         totalFeedbackLabel = new JLabel("Total Feedback: 0");
         averageRatingLabel = new JLabel("Average Rating: 0");
@@ -50,7 +64,7 @@ public class FeedbackDashboard extends JFrame {
 
         feedbackTable = new JTable();
         tableModel = new DefaultTableModel(
-                new Object[]{"ID", "Customer", "Feedback Date", "Feedback Text", "Rating"}, 0);
+                new Object[]{"ID", "Customer Review", "Feedback Date", "Feedback Text", "Rating"}, 0);
         feedbackTable.setModel(tableModel);
         JScrollPane tableScrollPane = new JScrollPane(feedbackTable);
 
@@ -75,6 +89,37 @@ public class FeedbackDashboard extends JFrame {
         List<Feedback> feedbackList = feedbackController.searchFeedbacksByCustomerName(customerName);
         updateTable(feedbackList);
         updateStats(feedbackList);
+    }
+
+    private void updateFeedback() {
+        int selectedRow = feedbackTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            Long feedbackId = (Long) tableModel.getValueAt(selectedRow, 0);
+            Feedback feedback = feedbackController.getFeedbackById(feedbackId);
+            
+            String newFeedbackText = JOptionPane.showInputDialog(this, "Enter new feedback text:", feedback.getFeedbackText());
+            if (newFeedbackText != null && !newFeedbackText.trim().isEmpty()) {
+                feedback.setFeedbackText(newFeedbackText);
+                feedbackController.updateFeedback(feedback);
+                loadDashboardData();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a feedback to update.");
+        }
+    }
+
+    private void deleteFeedback() {
+        int selectedRow = feedbackTable.getSelectedRow();
+        if (selectedRow >= 0) {
+            Long feedbackId = (Long) tableModel.getValueAt(selectedRow, 0);
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this feedback?", "Delete Feedback", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                feedbackController.deleteFeedback(feedbackId);
+                loadDashboardData();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a feedback to delete.");
+        }
     }
 
     private void updateTable(List<Feedback> feedbackList) {
