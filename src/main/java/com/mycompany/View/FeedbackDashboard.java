@@ -29,7 +29,7 @@ public class FeedbackDashboard extends JFrame {
     }
 
     private void initComponents() {
-        JLabel searchLabel = new JLabel("Search by Customer:");
+        JLabel searchLabel = new JLabel("Search by Customer Review:");
         searchField = new JTextField(20);
         searchButton = new JButton("Search");
         updateButton = new JButton("Update");
